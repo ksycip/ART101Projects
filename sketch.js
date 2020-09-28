@@ -4,6 +4,7 @@
 let value = 0;
 let angleMouth = 10;
 let bamYes = false;
+let sketchStarted = false;
 
 //Change Box dog ear color
 var color = 0
@@ -15,15 +16,26 @@ function setup() {
   createCanvas(400, 400);
   angleMode(DEGREES);
 
+  createButton("Start").mousePressed(startSketch);
+
+function startSketch(){
   mic = new p5.AudioIn()
   mic.start();
+
+  sketchStarted = true;
+}
 
   for (let i = 0; i <= 6; i++) {
     ball[i] = new Ball(random(1, 10) * width * .1, random(1, 10) * height * .2, random(360), random(10) * .2);
   }
+
 }
 
+
 function draw() {
+
+if(sketchStarted){
+
 
   console.log("mouse level " + mic.getLevel());
 
@@ -37,7 +49,7 @@ function draw() {
 
 //change box dog ears color
    color = map(mouseY, 0, 400, 0, 355);
-  
+
   if(mouseX < 100) {
     noStroke();
     fill(220);
@@ -50,10 +62,10 @@ function draw() {
     fill(99, 112, 78);
     circle(width * .50, height * .25, width * .1);
     circle(width * .2, height * .45, width * .1);
-  } 
+  }
 
 //rect(x, width * .9, height * .1, 10);
-  
+
   x = this._xPos + 1;
 
 if (x > 400 + width * .9) {
@@ -83,12 +95,13 @@ drawBoxDogMouthUpper(micLevel * 100);
 
 //   drawBoxDogBall(width * .9, height * .1, 10);
 
-
+//end draw loop
+}
 
 if (bamYes == true) {
   circle(width * .50, height * .25, width * .1);
   circle(width * .2, height * .45, width * .1);
-  //circle(width/2, height/2, 100); 
+  //circle(width/2, height/2, 100);
 }
 
 function mousePressed() {
